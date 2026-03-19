@@ -1,8 +1,9 @@
-const cacheName = 'gta93-v1';
+const cacheName = 'gta93-v2'; // Changé en v2 pour forcer la mise à jour
 const assets = [
   './',
   './index.html',
-  './manifest.json'
+  './manifest.json',
+  './logo.png'
 ];
 
 self.addEventListener('install', e => {
