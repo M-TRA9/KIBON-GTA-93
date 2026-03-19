@@ -1,4 +1,4 @@
-const cacheName = 'gta93-v2'; // Changé en v2 pour forcer la mise à jour
+const cacheName = 'gta93-v3'; // Changé en v2 pour forcer la mise à jour
 const assets = [
   './',
   './index.html',
