@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GTA 93 - KIBON TRAINING</title>
+    
+    <!-- Configuration Mobile App -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="GTA 93">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/503/503902.png">
+    <link rel="manifest" href="manifest.json">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:ital,wght@1,700&family=Roboto+Condensed:wght@700&display=swap');
+
+        :root {
+            --red: #ff0000;
+            --blue: #63b3ed;
+            --bg: #050a18;
+            --card: #0a1120;
+            --yellow: #f8d771;
+            --green: #71f8a1;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: white;
+            font-family: 'Roboto Condensed', sans-serif;
+            margin: 0; padding: 0; overflow-x: hidden;
+        }
+
+        /* --- ACCUEIL --- */
+        #home-screen {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            height: 100vh; text-align: center;
+            background: linear-gradient(rgba(5,10,24,0.85), rgba(5,10,24,0.85)), url('https://images.unsplash.com/photo-1555597673-b21d5c935865?auto=format&fit=crop&q=80') center/cover;
+        }
+
+        .logo-gta {
+            font-family: 'Oswald', sans-serif; font-style: italic; font-size: 70px;
+            line-height: 0.9; border-bottom: 10px solid var(--red); margin-bottom: 40px;
+            text-shadow: 5px 5px 0px rgba(0,0,0,0.6); text-transform: uppercase;
+        }
+
+        .start-btn {
+            background: var(--red); color: white; padding: 22px 50px;
+            font-size: 26px; font-weight: bold; text-transform: uppercase; border: none;
+            cursor: pointer; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+            transition: 0.3s; box-shadow: 0 10px 20px rgba(255, 0, 0, 0.3);
+        }
+
+        /* --- INTERFACE --- */
+        #app-interface { display: none; padding: 15px; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        header { 
+            display: flex; justify-content: space-between; align-items: center;
+            padding-bottom: 15px; border-bottom: 3px solid var(--red); margin-bottom: 10px;
+        }
+
+        .back-btn { background: #1a253a; color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 4px; font-weight: bold; }
+
+        .nav-poomsae { 
+            display: flex; overflow-x: auto; gap: 10px; padding: 15px 0;
+            scrollbar-width: none;
+        }
+        .nav-poomsae::-webkit-scrollbar { display: none; }
+        
+        .btn-p { 
+            background: #1a253a; color: #718096; border: none; padding: 12px 25px; 
+            font-weight: bold; text-transform: uppercase; flex-shrink: 0;
+            border-radius: 4px; font-family: 'Oswald', sans-serif; font-style: italic; font-size: 16px;
+        }
+        .btn-p.active { background: var(--red); color: white; box-shadow: 0 0 15px rgba(255,0,0,0.5); }
+
+        .main-grid { display: grid; grid-template-columns: 1fr; gap: 30px; }
+        @media (min-width: 1024px) { .main-grid { grid-template-columns: repeat(3, 1fr); } }
+
+        .col-title { 
+            font-family: 'Oswald', sans-serif; font-style: italic; text-transform: uppercase; 
+            font-size: 24px; margin-bottom: 20px; border-left: 8px solid; padding-left: 15px; 
+        }
+
+        .card { background: var(--card); border: 1px solid #1a253a; margin-bottom: 20px; border-radius: 5px; }
+        .card-header { padding: 10px; text-align: center; color: black; font-weight: 900; font-size: 11px; text-transform: uppercase; line-height: 1.2; }
+        .h-y { background: var(--yellow); }
+        .h-g { background: var(--green); }
+        .h-b { background: var(--blue); }
+
+        .card-body { padding: 20px; min-height: 160px; }
+        .tchoumbi-box { background: white; color: black; padding: 5px 15px; font-weight: 900; font-style: italic; text-transform: uppercase; display: inline-block; transform: skewX(-15deg); margin-bottom: 20px; font-size: 16px; }
+        
+        .step { display: flex; align-items: center; margin-bottom: 10px; }
+        .bullet { width: 8px; height: 8px; background: white; margin-right: 12px; flex-shrink: 0; }
+        .step-box { background: #0d1629; border: 1px solid #1e2a44; padding: 12px; flex-grow: 1; font-size: 12px; font-weight: bold; color: var(--blue); text-transform: uppercase; }
+
+        .footer-tag { text-align: center; color: #2d3748; font-size: 10px; padding: 40px 15px; letter-spacing: 3px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div id="home-screen">
+        <div class="logo-gta">GTA 93<br>KIBON</div>
+        <button class="start-btn" onclick="startApp()">Commencer l'entraînement</button>
+        <p style="margin-top: 30px; color: #718096; letter-spacing: 4px; font-weight: bold; font-size: 12px;">CSDGE FFTDA - SEINE-SAINT-DENIS</p>
+    </div>
+
+    <div id="app-interface">
+        <header>
+            <button class="back-btn" onclick="goHome()">🏠 ACCUEIL</button>
+            <div style="font-family: 'Oswald'; font-style: italic; color: var(--red); font-size: 20px;">POOMSAE TRAINING</div>
+        </header>
+
+        <div class="nav-poomsae" id="navbar"></div>
+
+        <div class="main-grid">
+            <div>
+                <div class="col-title" style="border-color: var(--yellow); color: var(--yellow);">MEMBRES SUPÉRIEURS</div>
+                <div id="bras-container"></div>
+            </div>
+            <div>
+                <div class="col-title" style="border-color: var(--green); color: var(--green);">MEMBRES INFÉRIEURS</div>
+                <div id="jambes-container"></div>
+            </div>
+            <div>
+                <div class="col-title" style="border-color: var(--blue); color: var(--blue);">ENCHAÎNEMENTS COMPLETS</div>
+                <div id="mixte-container"></div>
+            </div>
+        </div>
+        <div class="footer-tag">CSDGE FFTDA - SEINE-SAINT-DENIS</div>
+    </div>
+
+    <script>
+        const kibonDB = {
+            1: {
+                upper: [["ARAE MAKI", "MOMTONG BANDE JIREUGUI"], ["MOMTONG AN MAKI", "MOMTONG BARO JIREUGUI"], ["EULGOUL MAKI", "MOMTONG BANDE JIREUGUI"], ["DOUBLE MOMTONG JIREUGUI", "ARAE MAKI"]],
+                lower: [["AP TCHAGUI", "AP TCHAGUI"], ["NERYO TCHAGUI", "AP TCHAGUI"], ["AN TCHAGUI", "BAKKAT TCHAGUI"], ["BANDAL TCHAGUI", "AP TCHAGUI"]],
+                mixed: [["ARAE MAKI", "AP TCHAGUI", "MOMTONG BANDE JIREUGUI"], ["MOMTONG AN MAKI", "AP TCHAGUI", "MOMTONG BARO JIREUGUI"]]
+            },
+            2: {
+                upper: [["MOMTONG AN MAKI", "EULGOUL BANDE JIREUGUI"], ["EULGOUL MAKI", "MOMTONG BARO JIREUGUI"], ["ARAE MAKI", "EULGOUL BANDE JIREUGUI"], ["MOMTONG AN MAKI", "DOUBLE MOMTONG JIREUGUI"]],
+                lower: [["AP TCHAGUI", "DOLYEU TCHAGUI"], ["DOLYEU TCHAGUI", "DOLYEU TCHAGUI"], ["AP TCHAGUI", "AP TCHAGUI"], ["AP BAL DOLYEU", "DOLYEU TCHAGUI"]],
+                mixed: [["MOMTONG AN MAKI", "AP TCHAGUI", "EULGOUL BANDE JIREUGUI"], ["EULGOUL MAKI", "AP TCHAGUI", "MOMTONG BARO JIREUGUI"]]
+            },
+            3: {
+                upper: [["SONNAL MOMTONG MAKI", "HAN SONNAL MOK TCHIGUI"], ["HAN SONNAL MOK TCHIGUI", "MOMTONG BARO JIREUGUI"], ["SONNAL MOMTONG MAKI", "DOUBLE MOMTONG JIREUGUI"], ["HAN SONNAL MOK", "MOMTONG AN MAKI"]],
+                lower: [["AP TCHAGUI", "DWIT TCHAGUI"], ["DOLYEU TCHAGUI", "DOLYEU TCHAGUI"], ["AP TCHAGUI", "YOP TCHAGUI"], ["BANDAL TCHAGUI", "DOLYEU TCHAGUI"]],
+                mixed: [["SONNAL MAKI", "AP TCHAGUI", "HAN SONNAL MOK TCHIGUI"], ["HAN SONNAL MOK", "DOLYEU TCHAGUI", "MOMTONG BARO JIREUGUI"]]
+            },
+            4: {
+                upper: [["SONNAL MOMTONG MAKI", "PYON SONKEUT SEWO TCHIREUGUI"], ["JEEBIPOUM MOK TCHIGUI", "MOMTONG AN MAKI"], ["MOMTONG BAKKAT MAKI", "DEUNG JOUMOK EULGOUL TCHIGUI"], ["SONNAL MAKI", "MOMTONG AN MAKI", "DOUBLE MOMTONG JIREUGUI"]],
+                lower: [["YOP TCHAGUI", "YOP TCHAGUI"], ["AP TCHAGUI", "YOP TCHAGUI"], ["YOP TCHAGUI", "DOLYEU TCHAGUI"], ["AP BAL YOP TCHAGUI", "YOP TCHAGUI"]],
+                mixed: [["SONNAL MAKI", "AP TCHAGUI", "SONNAL MOMTONG MAKI"], ["JEEBIPOUM", "YOP TCHAGUI", "PYON SONKEUT SEWO"]]
+            },
+            5: {
+                upper: [["ME JOUMOK NERYO TCHIGUI", "DEUNG JOUMOK EULGOUL TCHIGUI"], ["PALKOUP DOLYEU TCHIGUI", "PALKOUP PYO JOCK TCHIGUI"], ["HAN SONNAL MOMTONG MAKI", "MOMTONG AN MAKI"], ["ARAE MAKI", "MOMTONG AN MAKI", "DOUBLE MOMTONG JIREUGUI"]],
+                lower: [["YOP TCHAGUI", "YOP TCHAGUI"], ["AP TCHAGUI", "YOP TCHAGUI"], ["YOP TCHAGUI", "DOLYEU TCHAGUI"], ["DWIT TCHAGUI", "YOP TCHAGUI"]],
+                mixed: [["ME JOUMOK", "AP TCHAGUI", "DEUNG JOUMOK EULGOUL"], ["PALKOUP DOLYEU", "YOP TCHAGUI", "PALKOUP PYO JOCK"]]
+            },
+            6: {
+                upper: [["HAN SONNAL BITUREO MAKI", "EULGOUL BAKKAT MAKI"], ["BATANG SON MOMTONG MAKI", "DOUBLE MOMTONG JIREUGUI"], ["ARAE MAKI", "HAN SONNAL BITUREO MAKI"], ["EULGOUL BAKKAT MAKI", "DOUBLE MOMTONG JIREUGUI"]],
+                lower: [["DOLYEU TCHAGUI", "DOLYEU TCHAGUI"], ["AP TCHAGUI", "DOLYEU TCHAGUI"], ["DOLYEU TCHAGUI", "DWIT TCHAGUI"], ["MOM DOLYEU TCHAGUI", "DOLYEU TCHAGUI"]],
+                mixed: [["HAN SONNAL BITUREO", "DOLYEU TCHAGUI", "EULGOUL BAKKAT MAKI"], ["BATANG SON MAKI", "AP TCHAGUI", "MOMTONG BARO JIREUGUI"]]
+            },
+            7: {
+                upper: [["BATANG SON MOMTONG AN MAKI", "SONNAL ARE MAKI"], ["BO JOUMOK", "KAWI MAKI"], ["MOMTONG HETCHUO MAKI", "MOUROUP KOKKI"], ["DEUNG JOUMOK EULGOUL TCHIGUI", "PALKOUP PYO JOCK TCHIGUI"]],
+                lower: [["PYO JOCK TCHAGUI", "YOP TCHAGUI"], ["AP TCHAGUI", "PYO JOCK TCHAGUI"], ["TUYO AP TCHAGUI", "YOP TCHAGUI"], ["MOM DOLYEU TCHAGUI", "YOP TCHAGUI"]],
+                mixed: [["BATANG SON AN MAKI", "AP TCHAGUI", "SONNAL ARE MAKI"], ["KAWI MAKI", "YOP TCHAGUI", "MOMTONG HETCHUO MAKI"]]
+            },
+            8: {
+                upper: [["DOUBLE MOMTONG BAKKAT MAKI", "DANG KYEU TEUK JIREUGUI"], ["OE SAN TEUL MAKI", "PALKOUP DOLYEU TCHIGUI"], ["DOUBT JOUMOK JETCHUO JIREUGUI", "HAN SONNAL MOK TCHIGUI"], ["OE SAN TEUL MAKI", "DANG KYEU TEUK", "DOUBLE MOMTONG JIREUGUI"]],
+                lower: [["TUYO AP TCHAGUI", "TUYO AP TCHAGUI"], ["DOLYEU TCHAGUI", "MOM DOLYEU TCHAGUI"], ["AP TCHAGUI", "TUYO AP TCHAGUI"], ["MOM DOLYEU TCHAGUI", "DOLYEU TCHAGUI"]],
+                mixed: [["DOUBLE BAKKAT MAKI", "TUYO AP TCHAGUI", "MOMTONG BANDE JIREUGUI"], ["OE SAN TEUL MAKI", "DOLYEU TCHAGUI", "MOMTONG BARO JIREUGUI"]]
+            }
+        };
+
+        function startApp() {
+            document.getElementById('home-screen').style.display = 'none';
+            document.getElementById('app-interface').style.display = 'block';
+            showPoomsae(1);
+        }
+
+        function goHome() {
+            document.getElementById('home-screen').style.display = 'flex';
+            document.getElementById('app-interface').style.display = 'none';
+        }
+
+        function showPoomsae(num) {
+            const data = kibonDB[num];
+            document.getElementById('bras-container').innerHTML = '';
+            document.getElementById('jambes-container').innerHTML = '';
+            document.getElementById('mixte-container').innerHTML = '';
+
+            for(let i=0; i<8; i++) {
+                addCard('bras-container', 'h-y', num, 'SUPÉRIEURS', data.upper[i % data.upper.length], i+1);
+                addCard('jambes-container', 'h-g', num, 'INFÉRIEURS', data.lower[i % data.lower.length], i+1);
+                addCard('mixte-container', 'h-b', num, 'COMPLETS', data.mixed[i % data.mixed.length], i+1);
+            }
+
+            document.querySelectorAll('.btn-p').forEach(b => b.classList.remove('active'));
+            document.getElementById('btn-'+num).classList.add('active');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function addCard(target, colorClass, num, type, moves, index) {
+            const movesHtml = moves.map(m => `<div class="step"><div class="bullet"></div><div class="step-box">${m}</div></div>`).join('');
+            const html = `<div class="card"><div class="card-header ${colorClass}">MODULE A - KIBON - POOMSAE ${num}<br>ENCHAÎNEMENT DES ${type}</div><div class="card-body"><div class="tchoumbi-box">${index}. TCHOUMBI SEUGUI</div>${movesHtml}</div></div>`;
+            document.getElementById(target).innerHTML += html;
+        }
+
+        const nav = document.getElementById('navbar');
+        for(let i=1; i<=8; i++) {
+            const btn = document.createElement('button');
+            btn.className = 'btn-p'; btn.id = 'btn-'+i; btn.innerText = 'POOMSAE ' + i;
+            btn.onclick = () => showPoomsae(i);
+            nav.appendChild(btn);
+        }
+
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+    </script>
+</body>
+</html>
